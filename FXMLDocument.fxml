@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml/1" fx:id="wrapBox"
+            fx:controller="expensetracker.fx.FXMLDocumentController">
+    <top> 
+        <VBox alignment="center">
+            <children>
+            <Label fx:id="title" text="My Expense Tracker"/>
+            <HBox alignment="CENTER">
+                <children>
+                    <ToggleButton text="Add New" fx:id="add" 
+                                  styleClass="mode-button"
+                                  toggleGroup="$mode" onAction="#addMode"/>
+                    <ToggleButton text="View Daily" fx:id="viewD" 
+                                  styleClass="mode-button"
+                                  toggleGroup="$mode" onAction="#viewDMode"/>
+                    <ToggleButton text="View Monthly" fx:id="viewM" 
+                                  styleClass="mode-button"
+                                  toggleGroup="$mode" onAction="#viewMMode"/>
+                </children>
+            </HBox>
+            <fx:define>
+                <ToggleGroup fx:id="mode"/>
+            </fx:define>
+            </children>  
+        </VBox>
+    </top>
+    <center>
+        <GridPane fx:id="box0" prefWidth="400" alignment="center">
+            <columnConstraints>
+                <ColumnConstraints percentWidth="25.0" />
+                <ColumnConstraints percentWidth="20.0" />
+                <ColumnConstraints percentWidth="20.0" />
+                <ColumnConstraints percentWidth="20.0" />
+                <ColumnConstraints percentWidth="15.0" />
+            </columnConstraints>           
+            <children>                      
+            <Label fx:id="lblAdd" text="Add New Expense" 
+                   styleClass="subtitle" GridPane.halignment="CENTER"
+                   GridPane.columnSpan="5" GridPane.rowIndex="0" />
+            <Label text="Date" GridPane.rowIndex="1" GridPane.columnIndex="0" />
+            <DatePicker fx:id="datePicker" GridPane.columnSpan="3"
+                        GridPane.rowIndex="1" GridPane.columnIndex="1"/>     
+            <Label text="Id" GridPane.rowIndex="2" GridPane.columnIndex="0" />
+            <Label fx:id="idField" text="00000000" GridPane.columnSpan="3"
+                   GridPane.rowIndex="2" GridPane.columnIndex="1"/>      
+            <Label text="Category" GridPane.columnSpan="3"
+                   GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+            <ComboBox fx:id="cateField" editable="false" GridPane.columnSpan="3"
+                      GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+            <Label text="Item" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+            <TextField fx:id="itemField" GridPane.columnSpan="3"
+                       GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+            <Label text="Quantity" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+            <TextField fx:id="qtyField" 
+                       GridPane.rowIndex="5" GridPane.columnIndex="1" />
+            <Label text="Price" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+            <TextField fx:id="priceField" GridPane.columnSpan="2"
+                       GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+            <Label text="Pay Type" GridPane.rowIndex="7" GridPane.columnIndex="0"/>
+            <ComboBox fx:id="typeField" editable="false" GridPane.columnSpan="3"
+                      GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+            <Label text="Total" GridPane.rowIndex="8" GridPane.columnIndex="0"/>
+            <Label fx:id="totalField" text="0.0" GridPane.columnSpan="3" 
+                   GridPane.rowIndex="8" GridPane.columnIndex="1"/> 
+            <Button fx:id="cancel" text="_Cancel" mnemonicParsing="true"
+                    onAction="#cancel" styleClass="cancel"
+                    GridPane.rowIndex="9" GridPane.columnIndex="1" />   
+            <Button fx:id="submit" text="_Submit" mnemonicParsing="true"
+                    onAction="#submit" styleClass="buttons"
+                    GridPane.rowIndex="9" GridPane.columnIndex="3" />       
+            </children> 
+        </GridPane>
+    </center>
+
+    <fx:define>
+            <GridPane fx:id="box1" prefWidth="400"> 
+            <columnConstraints>
+                <ColumnConstraints percentWidth="20.0" />
+                <ColumnConstraints percentWidth="15.0" />
+                <ColumnConstraints percentWidth="18.0" />
+                <ColumnConstraints percentWidth="16.0" />
+                <ColumnConstraints percentWidth="15.0" />
+                <ColumnConstraints percentWidth="16.0" />
+            </columnConstraints>           
+            <children>         
+            <Label fx:id="lblViewD" text="View Daily Expense" 
+                   styleClass="subtitle" GridPane.halignment="CENTER"
+                   GridPane.columnSpan="6" GridPane.rowIndex="0" />
+            <Label text="Date" GridPane.rowIndex="1" GridPane.columnIndex="0" />
+            <DatePicker fx:id="datePicker1" GridPane.columnSpan="3"
+                        GridPane.rowIndex="1" GridPane.columnIndex="1"/> 
+            <Button fx:id="search" text="search" styleClass="buttons"
+                    onAction="#displayDaily"
+                    GridPane.rowIndex="1" GridPane.columnIndex="4" />
+            <Label text="Id" GridPane.rowIndex="2" GridPane.columnIndex="0" />
+            <Label fx:id="idField1" text="" GridPane.columnSpan="2"
+                   GridPane.rowIndex="2" GridPane.columnIndex="1"/>        
+            <Label text="Category" GridPane.columnSpan="3"
+                   GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+            <ComboBox fx:id="cateField1" editable="false" styleClass="disabled"
+                      disable="true" GridPane.columnSpan="3"
+                      GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+            <Label text="Item" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+            <TextField fx:id="itemField1" GridPane.columnSpan="3" 
+                       disable="true" styleClass="disabled"
+                       GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+            <Label text="Quantity" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+            <TextField fx:id="qtyField1" disable="true" styleClass="disabled"
+                       GridPane.rowIndex="5" GridPane.columnIndex="1" />
+            <Label text="Price" GridPane.rowIndex="6" GridPane.columnIndex="0"/>
+            <TextField fx:id="priceField1" GridPane.columnSpan="3" 
+                       disable="true" styleClass="disabled"
+                       GridPane.rowIndex="6" GridPane.columnIndex="1"/>
+            <Label text="Pay Type" GridPane.rowIndex="7" GridPane.columnIndex="0"/>
+            <ComboBox fx:id="typeField1" editable="false" styleClass="disabled"
+                      disable="true" GridPane.columnSpan="3"
+                      GridPane.rowIndex="7" GridPane.columnIndex="1"/>
+            <Label text="Total" GridPane.rowIndex="8" GridPane.columnIndex="0"/>
+            <Label fx:id="totalField1" GridPane.columnSpan="3" 
+                       GridPane.rowIndex="8" GridPane.columnIndex="1"/> 
+            <Button fx:id="edit" text="_Edit" mnemonicParsing="true"
+                    onAction="#edit" styleClass="buttons"
+                    GridPane.rowIndex="9" GridPane.columnIndex="1"/>
+            <Button fx:id="cancelEdit" text="_Cancel" mnemonicParsing="true"
+                    onAction="#cancelEdit"
+                    GridPane.rowIndex="9" GridPane.columnIndex="2"/>
+            <Button fx:id="save" text="_Save" mnemonicParsing="true"
+                    onAction="#editAndSave" styleClass="buttons"
+                    GridPane.rowIndex="9" GridPane.columnIndex="3"/>
+            <Button fx:id="delete" text="_Delete" mnemonicParsing="true"
+                    onAction="#delete" styleClass="buttons"
+                    GridPane.rowIndex="9" GridPane.columnIndex="4"/>
+            <Button fx:id="prev" text="_Prev" mnemonicParsing="true" 
+                    onAction="#displayPrev" styleClass="no-border"
+                    GridPane.rowIndex="9" GridPane.columnIndex="0"/>
+            <Button fx:id="next" text="_Next" mnemonicParsing="true"
+                    onAction="#displayNext" styleClass="no-border"
+                    GridPane.rowIndex="9" GridPane.columnIndex="5"/>
+            </children>         
+        </GridPane>
+    </fx:define>
+    <fx:define>
+        <GridPane fx:id="box2" prefWidth="400"> 
+            <columnConstraints>
+                <ColumnConstraints percentWidth="20.0" />
+                <ColumnConstraints percentWidth="20.0" />
+                <ColumnConstraints percentWidth="20.0" />
+                <ColumnConstraints percentWidth="20.0" />
+                <ColumnConstraints percentWidth="20.0" />
+            </columnConstraints>           
+            <children>         
+            <Label fx:id="lblViewM" text="View Monthly Expense" 
+                   styleClass="subtitle" GridPane.halignment="CENTER"
+                   GridPane.columnSpan="5" GridPane.rowIndex="0" />
+            <Label text="Month" GridPane.rowIndex="1" GridPane.columnIndex="0" />
+            <ComboBox fx:id="monthPicker" GridPane.rowIndex="1" GridPane.columnIndex="1"/> 
+            <Label text="Year" GridPane.rowIndex="1" GridPane.columnIndex="2" />
+            <ComboBox fx:id="yearPicker" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+            <Button fx:id="searchM" text="search" styleClass="buttons"
+                    onAction="#displayMonthly"
+                    GridPane.rowIndex="1" GridPane.columnIndex="4"/>       
+            <TextArea fx:id="displayM" prefRowCount="16" GridPane.columnSpan="3"
+                      GridPane.rowIndex="4" GridPane.columnIndex="1"/>          
+            </children>         
+        </GridPane>
+    </fx:define>
+    <bottom>
+        <HBox alignment="BOTTOM_RIGHT">
+            <Button fx:id="exit" text="E_xit" mnemonicParsing="true" 
+                        onAction="#exit" />
+        </HBox>
+    </bottom>
+    <stylesheets>
+        <URL value="@res/main.css" />        
+    </stylesheets>  
+</BorderPane>
